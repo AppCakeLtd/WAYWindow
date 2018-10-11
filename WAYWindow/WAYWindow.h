@@ -29,6 +29,11 @@
  */
 @interface WAYWindow : NSWindow
 
+typedef void (^WAYTitleViewBackgroundDrawingBlock)(BOOL drawsAsMainWindow, CGRect drawingRect,
+                                                   CGRectEdge edge, CGPathRef clippingPath);
+
+@property (nonatomic, copy) WAYTitleViewBackgroundDrawingBlock titleBarDrawingBlock;
+
 /// Returns YES, if the class supports vibrant appearances. Can be used to determine if running on OS X 10.10+
 + (BOOL) supportsVibrantAppearances;
 
@@ -49,6 +54,14 @@
 
 /// If set to YES, the title of the window will be hidden. Default: YES.
 @property (nonatomic) IBInspectable BOOL hidesTitle;
+
+@property (nonatomic, strong) NSColor *baselineSeparatorColour;
+
+@property (nonatomic, strong) NSColor *inactiveBaselineSeparatorColour;
+
+@property (nonatomic) BOOL drawsTitlePatternOverlay;
+
+@property (nonatomic, strong) NSView *bottomTitleBarView;
 
 /// Replaces the window's content view with an instance of NSVisualEffectView and applies the Vibrant Dark look. Transfers all subviews to the new content view.
 - (void) setContentViewAppearanceVibrantDark;
@@ -73,5 +86,9 @@
 
 /// Returns YES if the window is currently in full-screen.
 - (BOOL) isFullScreen;
+
+@end
+
+@interface WAYTitleView : NSView
 
 @end
